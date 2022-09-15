@@ -39,22 +39,14 @@ public class FundingController {
 							  HttpSession session ){
 		
 		List<FundingDto> fundingList = fundingService.retriveFundingList(cri);
-		
-		fundingList.forEach(f -> {
-			System.out.println(f.toString());
-			f.getFiles().forEach(i -> {
-				System.out.println(i.toString());
-			});
-		});
-		
 		int total = fundingService.retrieveTotal(cri);
-		PageVo pageVo = new PageVo(cri, total);
+		PageVo pageVO = new PageVo(cri, total);
 
 		model.addAttribute("fundingList", fundingList);
-		model.addAttribute("pageVO", pageVo);
+		model.addAttribute("pageVO", pageVO);
 		
-//		List<UploadDto> fileList = fundingService.retrieveFundingListImg();
-//		model.addAttribute("fileList", fileList);
+		List<UploadDto> fileList = fundingService.retrieveFundingListImg(cri);
+		model.addAttribute("fileList", fileList);
 		
 		return "funding/fundingList";
 	}
@@ -76,10 +68,7 @@ public class FundingController {
 	public String fundingForm(@Valid FundingDto dto, Errors errors, Model model,
 						  	  @RequestParam("file") List<MultipartFile> files) {
 		
-		files.forEach(f -> {
-			System.out.println(f.toString());
-		});
-		
+		System.out.println("================" + dto.getM_num());
 		if(errors.hasErrors()) {
 			List<FieldError> list = errors.getFieldErrors();
 			for(FieldError err : list) {

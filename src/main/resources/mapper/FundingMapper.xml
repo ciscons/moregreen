@@ -5,7 +5,8 @@
   
   <mapper namespace="site.moregreen.basic.funding.FundingMapper">
 
-  <!-- <select id="selectFundigList" parameterType="site.moregreen.basic.util.Criteria" resultType="FundingDto">
+  <select id="selectFundigList" parameterType="site.moregreen.basic.util.Criteria" resultType="FundingDto">
+
 	select f_num as f_num,
 		   f_title as f_title,
 		   f_content as f_content,
@@ -30,56 +31,6 @@
 		select i_name as filename, i_path as filepath, i_uuid as uuid
 		from image
 		where funding_f_num = #{f_num}
-
-  </select> -->
-  <resultMap id="selectFundingListMap" type="FundingDto">
-  <result property="f_num" column="f_num"/>
-  <result property="f_title" column="f_title"/>
-  <result property="f_content" column="f_content"/>
-  <result property="f_days" column="f_days"/>
-  <result property="f_enddate" column="f_enddate"/>
-  <result property="f_target" column="f_target"/>
-  <result property="f_totalmoney" column="f_totalmoney"/>
-  <result property="f_rate" column="f_rate"/>
-  <result property="f_status" column="f_status"/>
-  <result property="f_reward" column="f_reward"/>
-  <result property="f_price" column="f_price"/>
-  <result property="f_bname" column="f_bname"/>
-  <result property="f_bnum" column="f_bnum"/>
-  <result property="m_num" column="m_num"/>
-  <result property="f_regdate" column="f_regdate"/>
-  <collection property="files" ofType="UploadDto">
-    <id property="upload_no" column="i_num"/> <!-- column은 DB의 column 이름, property는 DTO의 명칭  -->
-    <result property="filename" column="filename"/>
-    <result property="filepath" column="filepath"/>
-    <result property="uuid" column="uuid"/>
-    <result property="f_num" column="f_num"/>
-  </collection>
-</resultMap>
-
-  <select id="selectFundigList" parameterType="site.moregreen.basic.util.Criteria" resultMap="selectFundingListMap">
-	<!--  -->
-	select f.f_num as f_num,
-		   f.f_title as f_title,
-		   f.f_content as f_content,
-		   f.f_days as f_days,
-		   f.f_enddate as f_enddate,
-		   f.f_target as f_target,
-		   f.f_totalmoney as f_totalmoney,
-		   f.f_rate as f_rate,
-		   f.f_status as f_status,
-		   f.f_reward as f_reward,
-		   f.f_price as f_price,
-		   f.f_bname as f_bname,
-		   f.f_bnum as f_bnum,
-		   i.i_name as filename,
-		   i.i_path as filepath,
-		   i.i_uuid as uuid
-	  from funding f
-	       left outer join image i 
-	       on f.f_num = i.funding_f_num 
-	  where f.f_status in (3,4,5)
-	  order by f.f_num desc;
 
   </select>
 

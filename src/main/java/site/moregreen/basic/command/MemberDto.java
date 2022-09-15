@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class MemberDto {
 private Integer m_num;
-	//주석
+	
 	@NotBlank(message = "아이디를 입력해 주세요")
 	@Pattern(regexp="[a-z0-9]{8,20}", message="아이디는 영문 소문자, 숫자 8~20자리까지 가능합니다.")
 	@Column(unique=true)

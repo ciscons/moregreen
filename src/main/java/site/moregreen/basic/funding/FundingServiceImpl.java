@@ -1,20 +1,20 @@
 package site.moregreen.basic.funding;
 
-import java.io.File;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.UUID;
-
+import net.coobird.thumbnailator.Thumbnailator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-
 import site.moregreen.basic.command.FundingDto;
 import site.moregreen.basic.command.UploadDto;
 import site.moregreen.basic.util.Criteria;
+
+import java.io.File;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.UUID;
 
 @Service("fundingService")
 @Transactional(readOnly = true) //service impl에서 모든 method에 적용됨 (select에서 사용)
@@ -28,9 +28,9 @@ public class FundingServiceImpl implements FundingService{
 	
 	
 	//폴더생성함수
-	public String makeFolder(int f_num) {
+	public String makeFolder() {
 		
-		String path = Integer.toString(f_num);
+		String path = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyMMdd") );
 		File file = new File(uploadPath + "\\" + path);
 		if( file.exists() == false ) {
 			file.mkdirs(); //파일생성
@@ -50,7 +50,7 @@ public class FundingServiceImpl implements FundingService{
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public int addFunding(FundingDto dto, List<MultipartFile> files) {
-		int i = 1;
+		
 		fundingMapper.createFunding(dto);
 		
 		int f_num = dto.getF_num();
@@ -65,17 +65,21 @@ public class FundingServiceImpl implements FundingService{
 			//랜덤이름
 			String uuid = UUID.randomUUID().toString();
 			//날짜경로
-			String filepath = makeFolder(dto.getF_num());
+			String filepath = makeFolder();
 			//업로드경로
-			String saveName = uploadPath + "\\" + filepath + "\\" + uuid + "_" + filename;
+			String saveName = uploadPath + "\\"+ filepath  +"\\"+ uuid + "_" + filename;
 			//썸네일경로
-			//String thumbnailName = uploadPath + "\\" + filepath  + "\\thumb_" + uuid + "_" + filename;
+			String thumbnailName = uploadPath + "\\"+ filepath  +"\\thumb_"+ uuid + "_" + filename;
+			
+//			System.out.println(filename);
+//			System.out.println(size);
+//			System.out.println(saveName);
 			
 			try {
 				File saveFile = new File(saveName); 
 				file.transferTo(saveFile); //파일업로드
 				//썸네일 생성 업로드
-				//Thumbnailator.createThumbnail(saveFile, new File(thumbnailName) , 160, 160);
+				Thumbnailator.createThumbnail(saveFile, new File(thumbnailName) , 160, 160);
 				
 				
 			} catch (Exception e) {
@@ -90,9 +94,6 @@ public class FundingServiceImpl implements FundingService{
 											  .f_num(f_num)
 											  .build()
 											);
-			System.out.println("사진 등록 완료" + i);
-			i++;
-			
 		}
 		
 		return 0;
@@ -125,10 +126,10 @@ public class FundingServiceImpl implements FundingService{
 	}
 	
 	// 이미지 조회
-//	@Override
-//	public List<UploadDto> retrieveFundingListImg(Criteria cri) {
-//		return fundingMapper.selectFundingListImg(cri);
-//	}
+	@Override
+	public List<UploadDto> retrieveFundingListImg(Criteria cri) {
+		return fundingMapper.selectFundingListImg(cri);
+	}
 
 	@Transactional(rollbackFor = Exception.class)
 	@Override

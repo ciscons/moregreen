@@ -18,12 +18,6 @@
 	rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap"
 	rel="stylesheet">
-<link href="/css/nucleo-icons.css" rel="stylesheet" />
-<link href="/css/nucleo-svg.css" rel="stylesheet" />
-<link href="/css/main.css" rel="stylesheet" />	
-<link rel="apple-touch-icon" sizes="76x76" href="/img/apple-icon.png">
-<link rel="icon" type="image/png" href="/img/moregreen.png">
-<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
 
 <!-- ========================= CSS here ========================= -->
 <link rel="stylesheet" href="../css/bootstrap.min.css" />
@@ -179,7 +173,7 @@
 											<div class="dropdown">
 												<button class="btn btn-secondary dropdown-toggle"
 													type="button" data-bs-toggle="dropdown"
-													aria-expanded="false" th:if="${session.member==null}" >...</button>
+													aria-expanded="false" th:if="${session.member==null}" >aaa</button>
 													<button class="btn btn-secondary dropdown-toggle"
 													type="button" data-bs-toggle="dropdown"
 													aria-expanded="false" th:if="${session.member!=null}" >[[${session.member.m_id}]]</button>
@@ -224,8 +218,8 @@
 							<h3>Quick Links</h3>
 								<ul>
 									<li><a href="javascript:void(0)">소개</a></li>
-									<li><a th:href="@{/member/memberLogin}">로그인</a></li>
-									<li><a th:href="@{/member/memberReg}">회원가입</a></li>
+									<li><a th:href="@{/member/login}">로그인</a></li>
+									<li><a th:href="@{/member/join}">회원가입</a></li>
 									<li><a href="javascript:void(0)">공지사항</a></li>
 								</ul>
 									
