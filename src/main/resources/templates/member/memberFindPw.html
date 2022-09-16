@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/moregreen.ico">
   <title>
     회원 로그인
   </title>
@@ -35,50 +35,21 @@
 <script src="/js/jquery-3.6.0.js"></script>
 <script src="/js/jquery-3.6.0.min.js"></script>
 <script>
-$(document).ready(function(){
-	$(".findPw").click(function(){
-		$("#join").attr("type","button");
-		const m_id= $("#m_id").val();
-		$.ajax({
-			type:"get",
-			async: false,
-			url: "http://localhost:8383/member/memberFindPw",
-			data: {m_id:m_id},
-			success: function(data){
-				if(data==1){
-					$("#olmessage").text("이미 사용중인 ID입니다.");
-					$("#olmessage").addClass("olmessagef");
-					$("#olmessage").removeClass("olmessaget");
-				} else{
-					$("#olmessage").text("사용 가능한 ID입니다.");
-					$("#olmessage").addClass("olmessaget");
-					$("#olmessage").removeClass("olmessagef");
-					$(".join").attr("type", "submit");
-				}
-			}
-		})
-	});
-	
-	 $(".pwConfirm").keyup(function(){
-        var password=document.getElementById('m_pw');
-        var passwordConfirm=document.getElementById('m_pw_confirm');
-        var confirmMsg=document.getElementById('confirmMsg');
-        var correctColor="blue";
-        var wrongColor="red";
-        if(password.value==passwordConfirm.value){
-            confirmMsg.style.color=correctColor;
-            confirmMsg.innerHTML="비밀번호 일치"
-        } else{
-            confirmMsg.style.color=wrongColor;
-            confirmMsg.innerHTML="비밀번호 불일치";
-        }
-
-        });
-	 
-	
-	
-})
-    
+	$(function(){
+		$("#findBtn").click(function(){
+			$.ajax({
+				url : "/member/memberFindPw",
+				type : "POST",
+				data : {
+					id : $("#m_id").val(),
+					email : $("#m_email").val()
+				},
+				success : function(result) {
+					alert(result);
+				},
+			})
+		});
+	})
 </script>
 </head>
 
@@ -119,7 +90,7 @@ $(document).ready(function(){
                     
                    
                   <div class="text-center">
-                    <button type="button" class="btn bg-gradient-primary w-100 my-4 mb-2">OK</button>
+                    <button type="button" id="findBtn" class="btn bg-gradient-primary w-100 my-4 mb-2">OK</button>
                   </div>
                   <p class="mt-4 text-sm text-center">
                     계정이 없으신가요?

@@ -37,4 +37,9 @@ private Integer m_num;
 	
 	private char m_exit;
 	private Timestamp m_exitdate;
+	
+	public MemberDto findId(String m_email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

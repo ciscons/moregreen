@@ -2,6 +2,7 @@ package site.moregreen.basic.member;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -21,4 +22,10 @@ public interface MemberMapper {
 		public MemberDto login(MemberDto memberDto);
 		//회원 로그아웃
 		public void logout(HttpSession session);
+		//회원 아이디찾기
+		public String findId(String m_email)throws Exception;
+		public int findIdCheck(String m_email)throws Exception;
+		// 회원비밀번호찾기 
+		public void findPw(HttpServletResponse resp, MemberDto memberDto) throws Exception;
+		public MemberDto updatePw(String m_id);
 }

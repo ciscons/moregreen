@@ -3,6 +3,7 @@ package site.moregreen.basic.controller;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -94,6 +96,21 @@ public class MemberController {
 		return "member/memberFindId";
 	}
 	
+	@ResponseBody
+	@PostMapping("/memberFindId")
+	public String findId(MemberDto memberDto, Model model) throws Exception{
+		logger.info("memberEmail"+memberDto.getM_email());
+				
+		if(memberService.findIdCheck(memberDto.getM_email())==0) { 
+		model.addAttribute("msg", "이메일을 다시 입력해주세요");
+		return "/member/memberFindId";
+		}else {
+		model.addAttribute("member", memberService.findId(memberDto.getM_email()));
+		return
+				"/member/memberFindIdResult";
+		}
+	}
+	
 	@GetMapping("/memberFindIdResult")
 	public String findidResult() {
 		return "member/memberFindIdResult";
@@ -101,15 +118,26 @@ public class MemberController {
 	
 	
 	@GetMapping("/memberFindPw")
-	public String memberFindPw() {
-		return "member/memberFindPw";
+	public void memberFindPw() throws Exception{
+		
 	}
+	
+	/*
+	 * @PostMapping("/memberFindPw") public void findPw(@ModelAttribute MemberDto
+	 * memberDto, HttpServletResponse response) throws Exception{
+	 * memberService.findPw(response, memberDto); }
+	 */
 	
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		//logger.info("Logout success");
 		return "redirect:/";
 	}
+	
+	@GetMapping("/memberUpdatePw")
+	public String memberUpdatePw() {
+		return "member/memberUpdatePw";
+	}
+	
 	
 }
