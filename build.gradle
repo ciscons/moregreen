@@ -36,7 +36,7 @@ dependencies {
 	
 	//썸네일
 	implementation 'net.coobird:thumbnailator:0.4.8'
-	
+	//S
 	// mail service
 	//implementation 'org.springframework.boot:spring-boot-starter-mail'
 }
