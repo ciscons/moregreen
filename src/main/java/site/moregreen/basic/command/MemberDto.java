@@ -17,6 +17,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class MemberDto {
 private Integer m_num;
+
+//주석
 	//주석
 	@NotBlank(message = "아이디를 입력해 주세요")
 	@Pattern(regexp="[a-z0-9]{8,20}", message="아이디는 영문 소문자, 숫자 8~20자리까지 가능합니다.")
@@ -25,7 +27,7 @@ private Integer m_num;
 	
 	@NotBlank(message = "비밀번호를 입력해 주세요")
 	@Pattern(regexp="(?=.*[0-9])(?=.*[a-zA-Z])(?=.*?[!@#$%^&*]).{8,20}", 
-				message="비밀번호는 영문 대 소문자, 숫자 8-20자리까지 가능합니다.")
+				message="비밀번호는 영문 대 소문자, 숫자, 특수문자(!@#$%^&*) 8-20자리까지 가능합니다.")
 	//@Pattern(regexp="(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\W)(?=\\S+$).{8,}", message="비밀번호는 영문 대소문자, 특수문자, 숫자를 8-20자리까지 가능합니다.")
 	private String m_pw;
 	

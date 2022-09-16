@@ -69,14 +69,15 @@ public class MemberController {
 	}
 	
 	@PostMapping("/loginForm")
-	 public String loginForm(MemberDto memberDto, HttpServletRequest req, RedirectAttributes rttr ) throws Exception {
+	 public String loginForm(MemberDto memberDto, HttpServletRequest req, RedirectAttributes rttr, Model model ) throws Exception {
 		 
 		 HttpSession session =req.getSession();
 		 MemberDto member=  memberService.loginMember(memberDto);
 		if(member== null) {
 			session.setAttribute("member", null);
 			rttr.addFlashAttribute("msg", false);
-			//System.out.println("로그인 안됨");
+			model.addAttribute("msg",true);
+			//System.out.println();
 			 return"member/memberLogin";
 		} else {
 			session.setAttribute("member", member);
