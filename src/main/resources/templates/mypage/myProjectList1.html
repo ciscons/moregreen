@@ -16,13 +16,13 @@
 					<div class="row align-items-center">
 						<div class="col-lg-6 col-md-6 col-12">
 							<div class="breadcrumbs-content">
-								<h1 class="page-title">펀딩 구매 내역</h1>
+								<h1 class="page-title">내가 만든 프로젝트</h1>
 							</div>
 						</div>
 						<div class="col-lg-6 col-md-6 col-12">
 							<ul class="breadcrumb-nav">
 								<li><a href="/">홈</a></li>
-								<li>펀딩 구매 내역</li>
+								<li>내가 만든 프로젝트</li>
 							</ul>
 						</div>
 					</div>
@@ -47,20 +47,20 @@
 								</div>
 								<div class="dashboard-menu">
 									<ul>
-										<li><a class="active" href="purchaseList"><i
+										<li><a href="purchaseList1"><i
 												class="lni lni-dashboard"></i> 펀딩 구매 내역</a></li>
-										<li><a href="myProjectList"><i
+										<li><a  class="active" href="myProjectList1"><i
 												class="lni lni-pencil-alt"></i> 내가 만든 프로젝트</a></li>
-										<li><a href="fundingLikeList"><i
+										<li><a href="fundingLikeList1"><i
 												class="lni lni-heart"></i> 찜목록</a></li>
-										<li><a href="messages.html"><i
+										<li><a href="changePw"><i
 												class="lni lni-envelope"></i> PW변경</a></li>
-										<li><a href="delete-account.html"><i
+										<li><a href="deleteMember"><i
 												class="lni lni-trash"></i> 회원 탈퇴</a></li>
 
 									</ul>
 									<div class="button">
-										<a class="btn" href="javascript:void(0)">Logout</a>
+										<a class="btn" th:href="@{/member/logout}">Logout</a>
 									</div>
 								</div>
 							</div>
@@ -75,26 +75,25 @@
 						<div class="col-lg-9 col-md-12 col-12">
 							<div class="main-content">
 								<div class="dashboard-block mt-0">
-									<h3 class="block-title">펀딩 구매 내역</h3>
-
+									<h3 class="block-title">내가 만든 프로젝트</h3>
 									<div class="invoice-items default-list-style">
 
 										<div class="default-list-title">
 											<div class="row align-items-center">
 												<div class="col-lg-4 col-md-4 col-12">
-													<p>펀딩명</p>
+													<p>프로젝트명</p>
 												</div>
 												<div class="col-lg-2 col-md-2 col-12">
 													<p>상호명</p>
 												</div>
 												<div class="col-lg-2 col-md-2 col-12">
-													<p>펀딩 진행 여부</p>
+													<p>펀딩률</p>
 												</div>
 												<div class="col-lg-2 col-md-2 col-12">
-													<p>펀딩참여일</p>
+													<p>신청일</p>
 												</div>
 												<div class="col-lg-2 col-md-2 col-12">
-													<p>결제 상태</p>
+													<p>개설 신청 여부</p>
 												</div>
 												<!-- 												<div class="col-lg-2 col-md-2 col-12 align-right">
 													<p>Action</p>
@@ -106,21 +105,21 @@
 										<div class="single-list">
 											<div class="row align-items-center">
 												<div class="col-lg-4 col-md-4 col-12">
-													<p><a href="purchaseDetail1" >
-														펀딩 제목 </a><span>10,000</span>
+													<p>
+														펀딩 제목 <span>10,000</span>
 													</p>
 												</div>
 												<div class="col-lg-2 col-md-2 col-12">
 													<p>MoreGreen</p>
 												</div>
 												<div class="col-lg-2 col-md-2 col-12">
-													<p>펀딩 종료</p>
+													<p>30%</p>
 												</div>
 												<div class="col-lg-2 col-md-2 col-12">
 													<p>2022-09-16</p>
 												</div>
 												<div class="col-lg-2 col-md-2 col-12">
-													<p class="paid">결제완료</p>
+													<p class="paid">성공</p>
 												</div>
 												<!-- 												
 												<div class="col-lg-2 col-md-2 col-12 align-right">
@@ -138,21 +137,21 @@
 										<div class="single-list">
 											<div class="row align-items-center">
 												<div class="col-lg-4 col-md-4 col-12">
-													<p><a href="purchaseDetail1">
-														펀딩 제목 </a><span>30,000</span>
+													<p>
+														펀딩 제목 <span>30,000</span>
 													</p>
 												</div>
 												<div class="col-lg-2 col-md-2 col-12">
 													<p>MoreGreen</p>
 												</div>
 												<div class="col-lg-2 col-md-2 col-12">
-													<p>펀딩 실패</p>
+													<p>0%</p>
 												</div>
 												<div class="col-lg-2 col-md-2 col-12">
 													<p>2022-09-16</p>
 												</div>
 												<div class="col-lg-2 col-md-2 col-12">
-													<p class="pending">환불처리</p>
+													<p class="pending">심사중</p>
 												</div>
 											</div>
 										</div>
@@ -161,21 +160,21 @@
 										<div class="single-list">
 											<div class="row align-items-center">
 												<div class="col-lg-4 col-md-4 col-12">
-													<p><a href="purchaseDetail1">
-														펀딩 제목 </a><span>20,000</span>
+													<p>
+														펀딩 제목 <span>20,000</span>
 													</p>
 												</div>
 												<div class="col-lg-2 col-md-2 col-12">
 													<p>MoreGreen</p>
 												</div>
 												<div class="col-lg-2 col-md-2 col-12">
-													<p>펀딩 진행중</p>
+													<p>0%</p>
 												</div>
 												<div class="col-lg-2 col-md-2 col-12">
 													<p>2022-09-16</p>
 												</div>
 												<div class="col-lg-2 col-md-2 col-12">
-													<p class="unpaid">결제취소</p>
+													<p class="unpaid">반려</p>
 												</div>
 											</div>
 										</div>

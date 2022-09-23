@@ -89,7 +89,7 @@
 															<span>[[${dto.l_count}]]</span>
 														</a> -->
 														
-															<button class="btn heart" type="button">
+															<button class="btn heart" type="button" >
 																<i class="lni lni-heart" id="heart"></i>
 																<span th:if="${dto.l_count != null and dto.l_count != ''}">[[${dto.l_count}]]</span>
 																<span th:unless="${dto.l_count != null and dto.l_count != ''}">0</span>
@@ -235,42 +235,47 @@
       
       $(".heart").on("click", function () {
     	  event.preventDefault();
-      var sendData = {'f_num' : fNumById.val(), 'm_num' : mNumById.val()};
-      
-      $.ajax({
-          url :'/like/checkFundingLike',
-          type :'POST',
-          data : sendData,
-          success : function(data){
-        	  if(data) {
-        		  heartval = heartval - 1;
-        		  $(".heart").prop('name', heartval);
-        		  $(".heart").find('span').html(heartval);
-        		  $('#heart').prop("class","lni lni-heart");
-    			  var sendData = {'f_num' : fNumById.val(), 'm_num' : mNumById.val()};
-                  
-                  $.ajax({
-                      url :'/like/deleteFundingLike',
-                      type :'POST',
-                      data : sendData
-                  });
-              }
-              else{
-            	  heartval = heartval + 1;
-        		  $(".heart").prop('name', heartval);
-        		  $('#heart').prop("class","lni lni-heart-filled");
-    	    	  $(".heart").find('span').html(heartval);
-        		  
-    	    	  var sendData = {'f_num' : fNumById.val(), 'm_num' : mNumById.val(), 'heart' : heartByClass.prop('name')};
-                  
-                  $.ajax({
-                      url :'/like/fundingLike',
-                      type :'POST',
-                      data : sendData
-                  });
-              }
-          }
-      });
+    	  var session = [[${session.member}]];
+  		//console.log(session);
+  		if(session==null){
+  			alert("로그인 후 이용해 주세요")
+  		} else{var sendData = {'f_num' : fNumById.val(), 'm_num' : mNumById.val()};
+        
+        $.ajax({
+            url :'/like/checkFundingLike',
+            type :'POST',
+            data : sendData,
+            success : function(data){
+          	  if(data) {
+          		  heartval = heartval - 1;
+          		  $(".heart").prop('name', heartval);
+          		  $(".heart").find('span').html(heartval);
+          		  $('#heart').prop("class","lni lni-heart");
+      			  var sendData = {'f_num' : fNumById.val(), 'm_num' : mNumById.val()};
+                    
+                    $.ajax({
+                        url :'/like/deleteFundingLike',
+                        type :'POST',
+                        data : sendData
+                    });
+                }
+                else{
+              	  heartval = heartval + 1;
+          		  $(".heart").prop('name', heartval);
+          		  $('#heart').prop("class","lni lni-heart-filled");
+      	    	  $(".heart").find('span').html(heartval);
+          		  
+      	    	  var sendData = {'f_num' : fNumById.val(), 'm_num' : mNumById.val(), 'heart' : heartByClass.prop('name')};
+                    
+                    $.ajax({
+                        url :'/like/fundingLike',
+                        type :'POST',
+                        data : sendData
+                    });
+                }
+            }
+        })
+        };
   })
 })
 

@@ -1,7 +1,9 @@
-package site.moregreen.basic.myPage;
-
-public interface MyPageService {
-
-	
-	
-}
+/*
+ * package site.moregreen.basic.myPage;
+ * 
+ * public interface MyPageService {
+ * 
+ * 
+ * 
+ * }
+ */

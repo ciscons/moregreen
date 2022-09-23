@@ -1,6 +1,5 @@
 package site.moregreen.basic.controller;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,16 +15,20 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import lombok.extern.java.Log;
+import site.moregreen.basic.command.MailDto;
 import site.moregreen.basic.command.MemberDto;
+import site.moregreen.basic.member.MailService;
 import site.moregreen.basic.member.MemberService;
 
 @Controller
 @RequestMapping("/member")
+@Log
 public class MemberController {
 	
 	public final Logger logger= LoggerFactory.getLogger(MemberController.class);
@@ -33,6 +36,10 @@ public class MemberController {
 	@Autowired
 	@Qualifier("memberService")
 	MemberService memberService;
+	
+	@Autowired
+	@Qualifier("mailService")
+	MailService mailService;
 	
 	@GetMapping("/memberReg")
 	public String join() {
@@ -49,10 +56,7 @@ public class MemberController {
 	@PostMapping("/MemberReg")
 	public String joinForm(@Valid MemberDto memberDto, Errors errors, Model model) {
 		if(errors.hasErrors()) {
-			//회원가입 실패 시 입력 데이터 유지
-			//model.addAttribute("memberDto", memberDto);
 			
-			//유효성 통과 못한 필드와 메시지를 핸들링
 			Map<String, String> validatorResult=memberService.validateHandling(errors);
 			for(String key: validatorResult.keySet()) {
 				model.addAttribute(key, validatorResult.get(key));
@@ -79,13 +83,12 @@ public class MemberController {
 			session.setAttribute("member", null);
 			rttr.addAttribute("msg", false);
 			model.addAttribute("fail", 1);
-			//System.out.println("로그인 안됨");
+			
 			 return"member/memberLogin";
 		} else {
 			session.setAttribute("member", member);
 			session.setMaxInactiveInterval(1800);
-			//System.out.println(session.getAttribute("member"));
-			//System.out.println(member);
+			
 			
 			
 		}
@@ -99,28 +102,58 @@ public class MemberController {
 	
 	@PostMapping("/findId")
 	public String findId(MemberDto memberDto, Model model) throws Exception {
-		if(memberService.checkemail(memberDto)==0) {
+		if(memberService.findIdCheck(memberDto)==0) {
 			model.addAttribute("msg",true);
 			return "/member/memberFindId";
 		}else {
-			model.addAttribute("member", memberService.findid(memberDto));
+			model.addAttribute("member", memberService.findId(memberDto));
 			return "/member/memberFindIdResult";
 		}
 		
 	}
-
+	
+	@GetMapping("/memberFindIdResult")
+	public String findidResult() {
+		return "member/memberFindIdResult";
+	}
 	
 	@GetMapping("/memberFindPw")
 	public String memberFindPw() {
 		return "member/memberFindPw";
 	}
 	
-	@GetMapping("/findPw")
-    public int findPw(@RequestParam String m_id, @RequestParam String m_email){
-        return memberService.retrievePw(m_id, m_email);
+	@PostMapping("/findPw")
+	@ResponseBody
+	public int findPw(@RequestBody MemberDto memberDto) {
+		    String m_id = memberDto.getM_id();
+		    String m_email = memberDto.getM_email();		    		
+		    System.out.println("m_id : " + m_id);
+		    System.out.println("m_email : " + m_email);
+		 	int result = memberService.checkEmail(memberDto);
+		 	System.out.println("result : " + result);
+			return result;
+	}
+	
+	@PostMapping("/sendPwd")
+	@ResponseBody
+    public String sendPwdEmail(@RequestBody MemberDto memberDto) {
+
+
+        /** 임시 비밀번호 생성 **/
+        String tmpPassword = memberService.getTmpPassword();
+        
+        /** 임시 비밀번호 저장 **/
+        memberDto.setM_pw(tmpPassword);
+        memberService.updatePassword(memberDto);
+
+        /** 메일 생성 & 전송 **/
+        MailDto mail = mailService.createMail(tmpPassword, memberDto);
+        mailService.sendMail(mail);
+
+        log.info("임시 비밀번호 전송 완료");
+
+        return "member/memberLogin";
     }
-	
-	
     
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {

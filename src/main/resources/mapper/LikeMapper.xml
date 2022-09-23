@@ -11,29 +11,30 @@
 	  <result property="f_num" column="funding_f_num"/>
 </resultMap> -->
    
+  
   <insert id="createFundingLike" parameterType="LikeDto">
-		insert into f_like (
-							funding_f_num, 
-							member_m_num
-							)
-					values(
-							 #{f_num},
-							 #{m_num}
-							 )
-	</insert>
-	
-	  <delete id="deleteFundingLike" parameterType="LikeDto">
-	  
-	  	delete from f_like
-	  	where member_m_num= #{m_num} and funding_f_num = #{f_num}
-	  	
-	  </delete>
+      insert into likeFunding (
+                     funding_f_num, 
+                     member_m_num
+                     )
+               values(
+                      #{f_num},
+                      #{m_num}
+                      )
+   </insert>
+   
+     <delete id="deleteFundingLike" parameterType="LikeDto">
+     
+        delete from likeFunding
+        where member_m_num= #{m_num} and funding_f_num = #{f_num}
+        
+     </delete>
 
-	<!--  중복방지  -->
-	<select id="retrieveFundingLike" parameterType="LikeDto" resultType="int">
-		select count(*) as l_check
-		from f_like 
-		where member_m_num= #{m_num} and funding_f_num = #{f_num}
-	</select>
+   <!--  중복방지  -->
+   <select id="retrieveFundingLike" parameterType="LikeDto" resultType="int">
+      select count(*) as l_check
+      from likeFunding 
+      where member_m_num= #{m_num} and funding_f_num = #{f_num}
+   </select>
   
   </mapper>

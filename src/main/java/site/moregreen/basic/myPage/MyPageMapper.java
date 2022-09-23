@@ -1,10 +1,11 @@
-package site.moregreen.basic.myPage;
-
-import org.apache.ibatis.annotations.Mapper;
-
-@Mapper
-public interface MyPageMapper {
-
-	
-	
-}
+/*
+ * package site.moregreen.basic.myPage;
+ * 
+ * import org.apache.ibatis.annotations.Mapper;
+ * 
+ * @Mapper public interface MyPageMapper {
+ * 
+ * 
+ * 
+ * }
+ */

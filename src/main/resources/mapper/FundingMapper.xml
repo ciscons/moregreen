@@ -145,7 +145,7 @@
 			   f.f_bname as f_bname,
 			   f.f_bnum as f_bnum,
 			   (select m.m_id from member m where m.m_num = f.member_m_num) as m_id,
-			   (select COUNT(l_num) from f_like l where l.funding_f_num = f.f_num group by (funding_f_num)) as l_count,
+			   (select COUNT(l_num) from likefunding l where l.funding_f_num = f.f_num group by (funding_f_num)) as l_count,
 			   i.i_num as i_num,
 			   i.i_name as filename,
 			   i.i_uuid as uuid,

@@ -6,7 +6,7 @@
 <mapper namespace="site.moregreen.basic.MyPage.MyPageMapper">
 		
 	
-	<select id="selectFuningLikeList" parameterType="" resultType="" > 
+	<!-- <select id="selectFuningLikeList" parameterType="" resultType="" > 
 		
 		select	f.f_title,
 				f.f_rate,
@@ -24,6 +24,6 @@
 		and i.i_type = 1
 		order by l.l_num desc		
 		
-	</select>
+	</select> -->
 		
 </mapper>
