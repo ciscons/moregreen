@@ -51,6 +51,7 @@
   
  <update id="findPassword" parameterType="site.moregreen.basic.command.MemberDto">
  		UPDATE member SET m_pw = #{m_pw}
+ 		WHERE m_id = #{m_id} AND m_email = #{m_email}
  </update>
   
   <!-- 회원목록조회 -->
