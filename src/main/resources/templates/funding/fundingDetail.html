@@ -236,11 +236,11 @@
       $(".heart").on("click", function () {
     	  event.preventDefault();
     	  var session = [[${session.member}]];
-  		//console.log(session);
+  		console.log(session);
   		if(session==null){
   			alert("로그인 후 이용해 주세요")
-  		} else{var sendData = {'f_num' : fNumById.val(), 'm_num' : mNumById.val()};
-        
+  		} else{
+  			var sendData = {'f_num' : fNumById.val(), 'm_num' : mNumById.val()};        
         $.ajax({
             url :'/like/checkFundingLike',
             type :'POST',
